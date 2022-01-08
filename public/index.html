@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <link rel="stylesheet" href="<%= BASE_URL %>css/newstyle.css" />
+    <title><%= htmlWebpackPlugin.options.title %></title>
+  </head>
+  <body>
+    <noscript>
+      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+    <button id="myBtn" title="Idi na vrh"><font-awesome-icon icon="angle-up"/>^</button>
+  </body>
+    <footer class="footer">
+        <div class="container text-center">
+            <span>&copy; 2022 - Milovan Lazić RIN-48/20</span>
+        </div>
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        window.onscroll = function () { scrollFunction() };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                document.getElementById("myBtn").style.display = "block";
+            } else {
+                document.getElementById("myBtn").style.display = "none";
+            }
+        }
+        //function topFunction() {
+        //    document.body.scrollTop = 0;
+        //    document.documentElement.scrollTop = 0;
+        //}
+        $(document).ready(function () {
+            // Add smooth scrolling to all links
+            $("#myBtn").on('click', function (event) {
+                
+                event.preventDefault();
+
+                var top = 0
+                $('html, body').animate({
+                    scrollTop: top
+                }, 1600, function () {
+
+                });
+            });
+        });
+    </script>
+</html>
