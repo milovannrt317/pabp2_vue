@@ -64,7 +64,7 @@ export default {
         DeleteProduct(id){
             deleteDataId('Products',id)
             .then(response=>{
-                if(response.status == 204)
+                if(response.status == 204 || response.status == 200)
                     alert('Successful data delete!')
                 this.$emit('product-delete-event', this.product);
             })
@@ -86,7 +86,6 @@ export default {
                 alert('Some field is empty, please fill it all!')
                 return
             }
-            this.productC.supplierName=this.suppliers.find(y=>y.supplierId==this.productC.supplierId).companyName
             this.productC.totalPrice=(this.productC.unitPrice * this.productC.unitsInStock).toFixed(2)
             
             let prod={}
@@ -99,10 +98,7 @@ export default {
             prod.unitsInStock=this.productC.unitsInStock
             prod.unitsOnOrder=this.productC.unitsOnOrder
             prod.reorderLevel=this.productC.reorderLevel
-            prod.discontinued=this.productC.discontinued
-            prod.category=this.productC.category
-            prod.supplier=this.productC.supplier
-            prod.orderDetails=this.productC.orderDetails
+            prod.discontinued=this.productC.discontinue
 
             putData('Products',prod.productId,prod)
             .then(response=>{
@@ -127,6 +123,10 @@ export default {
                 this.productInfo.unitPrice=this.productInfo.unitPrice ? this.productInfo.unitPrice : 0
                 this.productInfo.unitsInStock=this.productInfo.unitsInStock ? this.productInfo.unitsInStock : 0
                 this.productInfo.totalPrice=(this.productInfo.unitPrice * this.productInfo.unitsInStock).toFixed(2)
+                var supplier=this.suppliers.find(y=>y.supplierId==this.productInfo.supplierId)
+                var category=this.categories.find(y=>y.categoryId==this.productInfo.categoryId)
+                this.productInfo.category=category?category:{"categoryName": ""}
+                this.productInfo.supplier=supplier?supplier:{"companyName": ""}
                 this.info=true
             })
             .catch(err=>{

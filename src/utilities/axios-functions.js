@@ -3,28 +3,28 @@ import axios from 'axios'
 //const url = 'http://94.156.189.137:8000/api/'
 const url = 'http://localhost:47815/api/API'
 
-export function getData(addr){
-    const response = axios.get(`${url}${addr}`)
+export async function getData(addr){
+    const response = await axios.get(`${url}${addr}`)
     return response
 }
 
-export function getDataId(addr,id){
-    const response = axios.get(`${url}${addr}/${id}`)
+export async function getDataId(addr,id){
+    const response = await axios.get(`${url}${addr}/${id}`)
     return response
 }
 
-export function postData(addr,obj){
-    const response = axios.post(`${url}${addr}`,obj)
+export async function postData(addr,obj){
+    const response = await axios.post(`${url}${addr}`,obj)
     return response
 }
 
-export function deleteDataId(addr,id){
-    const response = axios.delete(`${url}${addr}/${id}`)
+export async function deleteDataId(addr,id){
+    const response = await axios.delete(`${url}${addr}/${id}`)
     return response
 }
 
-export function putData(addr,id,obj){
-    const response = axios.put(`${url}${addr}/${id}`,obj)
+export async function putData(addr,id,obj){
+    const response = await axios.put(`${url}${addr}/${id}`,obj)
     return response
 }
 

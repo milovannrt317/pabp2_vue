@@ -64,9 +64,12 @@ export default {
         },
         productAddHandler(obj){
             obj.totalPrice=(obj.unitPrice * obj.unitsInStock).toFixed(2)
+            var supplier=this.suppliers.find(y=>y.supplierId==obj.supplierId)
+            var category=this.categories.find(y=>y.categoryId==obj.categoryId)
+            obj.category=category?category:{"categoryName": ""}
+            obj.supplier=supplier?supplier:{"companyName": ""}
             this.products.push(obj)
             this.products.sort((b,a)=> a.productId - b.productId)
-            //this.PrikaziProizvode()
         },
         productDeleteHandler(obj){
             this.products.splice(this.products.indexOf(obj), 1)
@@ -76,6 +79,10 @@ export default {
             Object.entries(obj).forEach(item => {
                 pr[item[0]]=item[1]
             })
+            var supplier=this.suppliers.find(y=>y.supplierId==obj.supplierId)
+            var category=this.categories.find(y=>y.categoryId==obj.categoryId)
+            pr.category=category?category:{"categoryName": ""}
+            pr.supplier=supplier?supplier:{"companyName": ""}
         },
         GetProducts(){
             getData('Products')
@@ -109,6 +116,39 @@ export default {
             .catch(err=>{
                 console.log(err)
             })
+        },
+        async GetData(){
+            await getData('Categories')
+            .then(response=>{
+                this.categories=response.data
+            })
+            .catch(err=>{
+                console.log(err)
+            })
+            await getData('Suppliers')
+            .then(response=>{
+                this.suppliers=response.data
+            })
+            .catch(err=>{
+                console.log(err)
+            })
+            await getData('Products')
+            .then(response=>{
+                this.products=response.data
+                this.products.forEach(x=>{
+                    x.unitPrice=x.unitPrice ? x.unitPrice : 0
+                    x.unitsInStock=x.unitsInStock ? x.unitsInStock : 0
+                    x.totalPrice=(x.unitPrice * x.unitsInStock).toFixed(2)
+                    var supplier=this.suppliers.find(y=>y.supplierId==x.supplierId)
+                    var category=this.categories.find(y=>y.categoryId==x.categoryId)
+                    x.category=category?category:{"categoryName": ""}
+                    x.supplier=supplier?supplier:{"companyName": ""}
+                    })
+                this.products.sort((b,a)=> a.productId - b.productId)
+            })
+            .catch(err=>{
+                console.log(err)
+            })
         }
     },
     components:{
@@ -116,9 +156,7 @@ export default {
         ProductAdd
     },
     mounted(){
-        this.GetCategories()
-        this.GetSuppliers()
-        this.GetProducts()
+        this.GetData()
   }, 
   computed:{
       totalResult(){
