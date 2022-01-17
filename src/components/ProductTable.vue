@@ -87,6 +87,7 @@ export default {
         GetProducts(){
             getData('Products')
             .then(response=>{
+                console.log(response.data)
                 this.products=response.data
                 this.products.forEach(x=>{
                     x.unitPrice=x.unitPrice ? x.unitPrice : 0
@@ -111,6 +112,7 @@ export default {
         GetSuppliers(){
             getData('Suppliers')
             .then(response=>{
+                console.log(response.data)
                 this.suppliers=response.data
             })
             .catch(err=>{
