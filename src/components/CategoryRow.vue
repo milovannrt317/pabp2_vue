@@ -57,7 +57,7 @@ export default {
 
             putData('Categories',this.category.categoryId,this.categoryC)
             .then(response=>{
-                if(response.status == 204)
+                if(response.status == 204 || response.status == 200)
                     alert('Successful data change!')
                 this.modif=false
                 this.$emit('category-change-event', this.categoryC);

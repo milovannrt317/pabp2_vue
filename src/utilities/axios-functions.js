@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 //const url = 'http://94.156.189.137:8000/api/'
-const url = 'http://localhost:47815/api/API'
+const url = 'http://localhost:22658/api/API'
 
 export async function getData(addr){
     const response = await axios.get(`${url}${addr}`)
